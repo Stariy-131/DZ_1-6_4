@@ -30,16 +30,16 @@ window.addEventListener("DOMContentLoaded", () => {
         block.style.transform = `translate(${positionX}px, ${positionY}px)`;
 
         if (positionX < offsetWidth && positionY === 0) { 
-            positionX += 3;
+            positionX += 2;
         } 
         else if (positionX >= offsetWidth && positionY < offsetHeight) { 
-            positionY += 3;
+            positionY += 2;
         } 
         else if (positionX > 0 && positionY >= offsetHeight) {
-            positionX -= 3;
+            positionX -= 2;
         } 
         else if (positionX <= 0 && positionY > 0) {
-            positionY -= 3;
+            positionY -= 2;
         }
         requestAnimationFrame(moveBlock);
         
@@ -47,3 +47,42 @@ window.addEventListener("DOMContentLoaded", () => {
     moveBlock();
     
 });
+
+
+
+const startBtn = document.querySelector("#start");
+const stopBtn = document.querySelector("#stop");
+const resetBtn = document.querySelector("#reset");
+const timerDisplay = document.querySelector("#seconds");
+
+let isRunning = false;
+let seconds = 0;
+
+function start() {
+
+    if (isRunning) return;
+    isRunning = true;
+
+    const timer = setInterval(() => {
+        seconds++;
+        timerDisplay.textContent = seconds;
+    }, 1000);
+
+    stopBtn.onclick = () => {
+        clearInterval(timer);
+        isRunning = false;
+    };
+
+    resetBtn.onclick = () => {
+        clearInterval(timer);
+        seconds = 0;
+        timerDisplay.textContent = seconds;
+        isRunning = false;
+    };
+}
+
+startBtn.onclick = () => {
+    start()
+}
+
+
